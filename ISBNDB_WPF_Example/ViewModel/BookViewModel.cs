@@ -14,16 +14,10 @@ namespace ISBNDB_WPF_Example.ViewModel
         {
             Book = new Book();
             RaisePropertyChangedEvent("Book");
+            Book.GetDataFromISBN("0061031321");
         }
 
         public Book Book { get; set; }
-             
-
-        private ObservableCollection<string> _searchHistory = new ObservableCollection<string>();
-
-        public ObservableCollection<string> SearchHistory
-        { get { return _searchHistory; } private set { } }
-
 
     }
 }
