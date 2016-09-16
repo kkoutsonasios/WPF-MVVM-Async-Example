@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISBNDB_WPF_Example.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,11 +10,14 @@ namespace ISBNDB_WPF_Example.ViewModel
 {
     class BookViewModel : BaseViewModel
     {
-        private ObservableCollection<string> _searchHistory = new ObservableCollection<string>();
+        public BookViewModel()
+        {
+            Book = new Book();
+            RaisePropertyChangedEvent("Book");
+            Book.GetDataFromISBN("0061031321");
+        }
 
-        public ObservableCollection<string> SearchHistory
-        { get { return _searchHistory; } private set { } }
-
+        public Book Book { get; set; }
 
     }
 }
