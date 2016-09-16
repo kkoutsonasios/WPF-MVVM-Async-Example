@@ -5,11 +5,12 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Xml;
 
 namespace ISBNDB_WPF_Example.Model
 {
-    public class Book
+    public class Book : BaseModel
     {
         public Book()
         {
@@ -17,15 +18,33 @@ namespace ISBNDB_WPF_Example.Model
             this.TitleLong = string.Empty;
             this.AuthorsText = string.Empty;
             this.PublisherText = string.Empty;
+            this.ISBN = "ISBN to look up";
+            this.LoadingISBN = false;
         }
 
-        public string Title { get; set; }
-        public string TitleLong{ get; set; }
-        public string AuthorsText { get; set; }
-        public string PublisherText { get; set; }
+        private string _ISBN;
+        public string ISBN { get { return _ISBN; } set { _ISBN = value; RaisePropertyChangedEvent("ISBN"); } }
 
-        public void GetDataFromISBN(string ISBN)
+        private string _title;
+        public string Title { get { return _title; } set { _title = value; RaisePropertyChangedEvent("Title"); } }
+
+        private string _titleLong;
+        public string TitleLong { get { return _titleLong; } set { _titleLong = value; RaisePropertyChangedEvent("TitleLong"); } }
+
+        private string _authorsText;
+        public string AuthorsText { get { return _authorsText; } set { _authorsText = value; RaisePropertyChangedEvent("AuthorsText"); } }
+
+        private string _publisherText;
+        public string PublisherText { get { return _publisherText; } set { _publisherText = value; RaisePropertyChangedEvent("PublisherText"); } }
+
+        private bool _loadingISBN;
+        public bool LoadingISBN { get { return _loadingISBN; } set { _loadingISBN = value; RaisePropertyChangedEvent("LoadingISBN"); } }
+
+
+
+        public void GetDataFromISBN()
         {
+            LoadingISBN = true;
             string URLPath = string.Format("http://isbndb.com/api/books.xml?access_key=VOHXWVXM&index1=isbn&value1={0}", ISBN);
             WebRequest request = WebRequest.Create(URLPath);
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -33,14 +52,14 @@ namespace ISBNDB_WPF_Example.Model
             StreamReader reader = new StreamReader(dataStream);
             string responseFromServer = reader.ReadToEnd();
             ParseXML(responseFromServer);
+            LoadingISBN = false;
         }
 
         private void ParseXML(string XMLString)
         {
             XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(XMLString); // Load the XML document from the specified file
+            xmlDoc.LoadXml(XMLString);
 
-            // Get elements
             XmlNodeList Title = xmlDoc.GetElementsByTagName("Title");
             XmlNodeList TitleLong = xmlDoc.GetElementsByTagName("TitleLong");
             XmlNodeList AuthorsText = xmlDoc.GetElementsByTagName("AuthorsText");
