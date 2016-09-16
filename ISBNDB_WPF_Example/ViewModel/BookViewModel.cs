@@ -14,9 +14,7 @@ namespace ISBNDB_WPF_Example.ViewModel
         public BookViewModel()
         {
             Book = new Book();
-            RaisePropertyChangedEvent("Book");
-            //Book.GetDataFromISBN("0061031321");
-            
+            Book.ISBN = "sample ISBN 0061031321";
         }
 
         public Book Book { get; set; }
