@@ -1,10 +1,12 @@
-﻿using System;
+﻿using ISBNDB_WPF_Example.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Xml;
 
 namespace ISBNDB_WPF_Example.Model
@@ -17,14 +19,16 @@ namespace ISBNDB_WPF_Example.Model
             this.TitleLong = string.Empty;
             this.AuthorsText = string.Empty;
             this.PublisherText = string.Empty;
+            this.ISBN = "ISBN to look up";
         }
 
+        public string ISBN { get; set; }
         public string Title { get; set; }
         public string TitleLong{ get; set; }
         public string AuthorsText { get; set; }
         public string PublisherText { get; set; }
 
-        public void GetDataFromISBN(string ISBN)
+        public void GetDataFromISBN()
         {
             string URLPath = string.Format("http://isbndb.com/api/books.xml?access_key=VOHXWVXM&index1=isbn&value1={0}", ISBN);
             WebRequest request = WebRequest.Create(URLPath);
@@ -38,9 +42,8 @@ namespace ISBNDB_WPF_Example.Model
         private void ParseXML(string XMLString)
         {
             XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(XMLString); // Load the XML document from the specified file
+            xmlDoc.LoadXml(XMLString);
 
-            // Get elements
             XmlNodeList Title = xmlDoc.GetElementsByTagName("Title");
             XmlNodeList TitleLong = xmlDoc.GetElementsByTagName("TitleLong");
             XmlNodeList AuthorsText = xmlDoc.GetElementsByTagName("AuthorsText");
