@@ -10,7 +10,8 @@ namespace ISBNDB_WPF_Example.Model
     {
         public Book()
         {
-            this.Title = string.Empty;
+            //this.Title = string.Empty;
+            this.Title = "Test String!";
             this.TitleLong = string.Empty;
             this.AuthorsText = string.Empty;
             this.PublisherText = string.Empty;

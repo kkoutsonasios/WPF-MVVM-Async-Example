@@ -13,6 +13,9 @@
     </Window.DataContext>
     
     <Grid>
-
+        <Label Content="{Binding Book.Title}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="50"/>
+        <Label Content="{Binding Book.TitleLong}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="50" Margin="0,50,0,0"/>
+        <Label Content="{Binding Book.AuthorsText}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="50" Margin="0,100,0,0"/>
+        <Label Content="{Binding Book.PublisherText}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="50" Margin="0,150,0,0"/>
     </Grid>
 </Window>
