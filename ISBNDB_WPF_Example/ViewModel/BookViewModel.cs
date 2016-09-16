@@ -15,6 +15,11 @@ namespace ISBNDB_WPF_Example.ViewModel
         {
             Book = new Book();
             Book.ISBN = "sample ISBN 0061031321";
+
+            GetDataFromISBNAsyncCommand = new AsyncCommand(async () =>
+            {
+               await Task.Run(action:Book.GetDataFromISBN);
+            });
         }
 
         public Book Book { get; set; }
@@ -23,6 +28,8 @@ namespace ISBNDB_WPF_Example.ViewModel
         {
             get { return new DelegateCommand(Book.GetDataFromISBN); }
         }
+        
+        public AsyncCommand GetDataFromISBNAsyncCommand { get; private set; }
 
     }
 }
